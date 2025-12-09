@@ -2,35 +2,88 @@
 
 import { motion } from 'framer-motion'
 
+interface Skill {
+  name: string
+  isLearning?: boolean
+}
+
 interface SkillCategory {
   name: string
-  skills: string[]
+  skills: Skill[]
 }
 
 const skillCategories: SkillCategory[] = [
   {
     name: 'Languages',
-    skills: ['JavaScript', 'TypeScript', 'Python', 'SQL']
+    skills: [
+      { name: 'JavaScript' },
+      { name: 'TypeScript' },
+      { name: 'Python' },
+      { name: 'SQL' },
+      { name: 'Go', isLearning: true }
+    ]
   },
   {
     name: 'Frontend',
-    skills: ['React', 'Next.js', 'HTML/CSS', 'Tailwind']
+    skills: [
+      { name: 'React' },
+      { name: 'Next.js' },
+      { name: 'HTML/CSS' },
+      { name: 'Tailwind' }
+    ]
   },
   {
     name: 'Backend',
-    skills: ['Node.js', 'Express', 'REST APIs']
+    skills: [
+      { name: 'Node.js' },
+      { name: 'Express' },
+      { name: 'REST APIs' },
+      { name: 'Kafka', isLearning: true },
+      { name: 'gRPC', isLearning: true }
+    ]
+  },
+  {
+    name: 'Database',
+    skills: [
+      { name: 'Time-series DB', isLearning: true }
+    ]
   },
   {
     name: 'AI/ML',
-    skills: ['Machine Learning', 'AI Integration', 'Data Analysis']
+    skills: [
+      { name: 'Machine Learning' },
+      { name: 'AI Integration' },
+      { name: 'Data Analysis' }
+    ]
+  },
+  {
+    name: 'DevOps',
+    skills: [
+      { name: 'Git' },
+      { name: 'Docker' },
+      { name: 'Kubernetes', isLearning: true },
+      { name: 'Prometheus', isLearning: true },
+      { name: 'Grafana', isLearning: true }
+    ]
   },
   {
     name: 'Tools',
-    skills: ['Git', 'Docker', 'VS Code', 'Postman']
+    skills: [
+      { name: 'VS Code' },
+      { name: 'Postman' }
+    ]
   },
   {
     name: 'Concepts',
-    skills: ['Full-Stack Development', 'API Design', 'Agile', 'Problem Solving']
+    skills: [
+      { name: 'Full-Stack Development' },
+      { name: 'API Design' },
+      { name: 'Agile' },
+      { name: 'Problem Solving' },
+      { name: 'Distributed Systems', isLearning: true },
+      { name: 'Event-Driven Architecture', isLearning: true },
+      { name: 'Operational Transformation', isLearning: true }
+    ]
   }
 ]
 
@@ -66,20 +119,37 @@ export default function Skills() {
               <h3 className="text-xl font-bold text-indigo-400 mb-4">
                 {category.name}
               </h3>
-              <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill, skillIndex) => (
-                  <motion.span
-                    key={skill}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: categoryIndex * 0.1 + skillIndex * 0.05 }}
-                    whileHover={{ scale: 1.1 }}
-                    className="px-3 py-2 text-sm bg-purple-500/20 text-purple-300 rounded-lg border border-purple-500/30 cursor-default"
-                  >
-                    {skill}
-                  </motion.span>
-                ))}
+              <div className="flex flex-wrap gap-2.5">
+                {category.skills.map((skill, skillIndex) => {
+                  const isLearning = skill.isLearning
+                  return (
+                    <motion.div
+                      key={skill.name}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.3, delay: categoryIndex * 0.1 + skillIndex * 0.05 }}
+                      whileHover={{ scale: 1.05 }}
+                      className="relative group"
+                    >
+                      <span
+                        className={`inline-block px-3 py-1.5 rounded-lg border cursor-default whitespace-nowrap ${
+                          isLearning
+                            ? 'text-xs bg-purple-500/12 text-purple-300/60 border-purple-500/30 border-dashed opacity-60'
+                            : 'text-sm bg-purple-500/20 text-purple-300 border-purple-500/30'
+                        }`}
+                      >
+                        {skill.name}
+                        {isLearning && <span className="ml-1">🔨</span>}
+                      </span>
+                      {isLearning && (
+                        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50 shadow-lg">
+                          Currently learning through projects
+                        </div>
+                      )}
+                    </motion.div>
+                  )
+                })}
               </div>
             </motion.div>
           ))}
