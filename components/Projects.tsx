@@ -8,6 +8,7 @@ interface Project {
   description: string
   tech: string[]
   githubUrl: string
+  webUrl?: string
   highlights?: string
   icon?: React.ReactNode
   isPortfolio?: boolean
@@ -26,6 +27,20 @@ const projects: Project[] = [
     isPortfolio: true
   },
   {
+    title: 'BioBoard',
+    description: 'Health and fitness web application providing comprehensive tracking, analytics, and visualization for personal wellness and fitness goals. Features multiple ML models for health predictions and insights.',
+    tech: ['Python', 'Machine Learning', 'Scikit-learn', 'Random Forest', 'Neural Networks', 'Flask', 'Pandas', 'NumPy'],
+    githubUrl: 'https://github.com/SSriya17/BioBoard',
+    webUrl: 'https://bio-board-seven.vercel.app/'
+  },
+  {
+    title: 'HackathonApp',
+    description: 'T-Mobile X PNC Hackathon application showcasing innovative solutions combining telecommunications and financial technology services.',
+    tech: ['Python', 'React', 'Node.js', 'REST APIs'],
+    githubUrl: 'https://github.com/SSriya17/HackathonApp',
+    webUrl: 'https://bridgelens.streamlit.app/'
+  },
+  {
     title: 'AccountSync',
     description: 'All-in-one outreach hub integrating Gmail, Outlook, and Teams with AI-powered scheduling capabilities for seamless communication management.',
     tech: ['React', 'TypeScript', 'Node.js', 'Express.js', 'PostgreSQL', 'OAuth 2.0', 'REST APIs', 'AI/ML'],
@@ -35,19 +50,8 @@ const projects: Project[] = [
     title: 'FocusMate',
     description: 'Productivity and focus application designed to help users maintain concentration and achieve their goals through innovative time management features.',
     tech: ['React', 'JavaScript', 'Tailwind CSS'],
-    githubUrl: 'https://github.com/SSriya17/FocusMate'
-  },
-  {
-    title: 'BioBoard',
-    description: 'Health and fitness web application providing comprehensive tracking, analytics, and visualization for personal wellness and fitness goals. Features multiple ML models for health predictions and insights.',
-    tech: ['Python', 'Machine Learning', 'Scikit-learn', 'Random Forest', 'Neural Networks', 'Flask', 'Pandas', 'NumPy'],
-    githubUrl: 'https://github.com/SSriya17/BioBoard'
-  },
-  {
-    title: 'HackathonApp',
-    description: 'T-Mobile X PNC Hackathon application showcasing innovative solutions combining telecommunications and financial technology services.',
-    tech: ['Python', 'React', 'Node.js', 'REST APIs'],
-    githubUrl: 'https://github.com/SSriya17/HackathonApp'
+    githubUrl: 'https://github.com/SSriya17/FocusMate',
+    webUrl: 'https://focus-mate-mu.vercel.app'
   }
 ]
 
@@ -129,6 +133,16 @@ export default function Projects() {
                       <span>You're Viewing It</span>
                       <span>✨</span>
                     </button>
+                  ) : project.webUrl ? (
+                    <a
+                      href={project.webUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 rounded-lg bg-gray-800 hover:bg-indigo-600 transition-colors"
+                      aria-label={`View ${project.title} demo`}
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                    </a>
                   ) : null}
                 </div>
               </div>
